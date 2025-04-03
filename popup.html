@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebClicker Auto-Answer</title>
+    <script src="popup.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 10px;
+        width: 400px;
+        height: 500px;
+      }
+      button {
+        margin: 5px 5px 5px 0;
+        padding: 8px 12px;
+      }
+      #statusContainer {
+        margin: 10px 0;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #logPanel {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>WebClicker Auto-Answer</h3>
+    <div>
+      <button id="startBtn">Start Monitoring</button>
+      <button id="stopBtn">Stop Monitoring</button>
+    </div>
+    <div id="statusContainer">
+      Status: <span id="statusText">Inactive</span>
+    </div>
+    <div>
+      <h4>Log Panel:</h4>
+      <div id="logPanel"></div>
+    </div>
+  </body>
+</html>

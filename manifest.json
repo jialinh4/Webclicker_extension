@@ -1,0 +1,24 @@
+{
+    "name": "WebClicker Auto-Answer",
+    "description": "Automatically detects active polls, selects random answers, logs events, and runs globally in the background.",
+    "version": "1.2",
+    "manifest_version": 3,
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "service_worker.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://webclicker.web.app/*"],
+        "js": ["content_script.js"]
+      }
+    ]
+  }
+  
