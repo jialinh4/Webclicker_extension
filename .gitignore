@@ -1,0 +1,68 @@
+# macOS system files
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.sqlite3
+.env
+.venv/
+venv/
+pip-wheel-metadata/
+coverage/
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS junk
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Archives / packages
+*.zip
+*.tar.gz
+*.tar
+*.rar
+*.7z
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+
+# Logs
+*.log
+
+# Binary files
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Test coverage
+.coverage
+.tox/
+
+# Git
