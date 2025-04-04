@@ -1,16 +1,16 @@
+// content_script.js
+
 let checkInterval = null;
 let lastQuestionText = "";
 
-chrome.runtime.sendMessage({ type: 'GET_MONITORING_STATUS' }, (response) => {
-  if (response.monitoringActive) startMonitoring();
-});
-
+// Starts polling for poll status.
 function startMonitoring() {
   if (!checkInterval) {
-    checkInterval = setInterval(checkPollStatus, 3000);
+    checkInterval = setInterval(checkPollStatus, 3000); // Check every 3 seconds
   }
 }
 
+// Stops polling for poll status.
 function stopMonitoring() {
   if (checkInterval) {
     clearInterval(checkInterval);
@@ -18,6 +18,7 @@ function stopMonitoring() {
   }
 }
 
+// Checks the poll status and selects an answer if a poll is active.
 function checkPollStatus() {
   // Adjust these selectors to match the actual webpage elements.
   const statusElement = document.querySelector(".poll-status");
@@ -26,10 +27,8 @@ function checkPollStatus() {
   if (!statusElement) return;
   const statusText = statusElement.textContent.trim();
 
-  if (statusText.includes("No current poll")) {
-    // No active poll.
-    return;
-  } else if (statusText.includes("Poll is active")) {
+  // Only act if a poll is active.
+  if (statusText.includes("Poll is active")) {
     const questionText = questionElement ? questionElement.textContent.trim() : "Unknown question";
     const selectedAnswer = getRandomAnswer();
     clickOption(selectedAnswer);
@@ -44,24 +43,23 @@ function checkPollStatus() {
   }
 }
 
+// Randomly selects an answer with a heavier weighting on A and B.
 function getRandomAnswer() {
   const rand = Math.random();
-  if (rand < 0.4) return "A";
-  if (rand < 0.8) return "B";
-  if (rand < 0.85) return "C";
-  if (rand < 0.9) return "D";
-  return "E";
+  if (rand < 0.4) return "A";  // 40% chance
+  if (rand < 0.8) return "B";  // 40% chance
+  if (rand < 0.85) return "C"; // 5% chance
+  if (rand < 0.9) return "D";  // 5% chance
+  return "E";                  // 10% chance
 }
 
+// Simulates a click on the desired answer option.
 function clickOption(answer) {
-  // Assuming radio buttons have IDs like "optionA", "optionB", etc.
+  // Assumes that options have IDs like "optionA", "optionB", etc.
   const optionId = "option" + answer;
   const option = document.getElementById(optionId);
   if (option) {
     option.click();
-    // If there is a submit button, simulate its click.
-    const submitBtn = document.querySelector(".poll-submit");
-    if (submitBtn) submitBtn.click();
   }
 }
 
