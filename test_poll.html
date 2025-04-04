@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Test Poll Page</title>
+    <style>
+      .poll-container {
+        margin: 20px;
+      }
+      .poll-status {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .poll-question {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="poll-container">
+      <h2 class="poll-status">No current poll</h2>
+      <div class="poll-question">Waiting for a question...</div>
+      <div>
+        <input type="radio" id="optionA" name="option" value="A"> A<br>
+        <input type="radio" id="optionB" name="option" value="B"> B<br>
+        <input type="radio" id="optionC" name="option" value="C"> C<br>
+        <input type="radio" id="optionD" name="option" value="D"> D<br>
+        <input type="radio" id="optionE" name="option" value="E"> E<br>
+      </div>
+      <button class="poll-submit">Submit Answer</button>
+      <!-- Button to simulate the appearance of a poll -->
+      <button onclick="simulatePoll()">Simulate Poll</button>
+    </div>
+    <script>
+      function simulatePoll() {
+        document.querySelector(".poll-status").textContent = "Poll is active";
+        document.querySelector(".poll-question").textContent = "Test Question: What is 2 + 2?";
+      }
+    </script>
+  </body>
+</html>

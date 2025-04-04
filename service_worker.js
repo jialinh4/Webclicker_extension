@@ -10,7 +10,6 @@ chrome.storage.local.get(["monitoringActive", "backgroundTabId"], (data) => {
     // Check if the background tab is still open.
     chrome.tabs.get(backgroundTabId, (tab) => {
       if (chrome.runtime.lastError) {
-        // Tab not found: reset state.
         logs.push({
           event: `Background tab with ID ${backgroundTabId} not found on initialization.`,
           timestamp: new Date().toISOString()
@@ -23,7 +22,7 @@ chrome.storage.local.get(["monitoringActive", "backgroundTabId"], (data) => {
   }
 });
 
-// Listen for messages from popup or elsewhere.
+// Listen for messages from the popup or other parts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'TOGGLE_MONITORING') {
     monitoringActive = request.value;
@@ -34,7 +33,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.storage.local.set({ monitoringActive });
 
     if (monitoringActive) {
-      // If monitoring is being turned on and no background tab exists, create one.
+      // If monitoring is turned on and no background tab exists, create one.
       if (!backgroundTabId) {
         chrome.tabs.create({
           url: "https://webclicker.web.app/student/TBgTHAaueLSwF0xWgVuM",
@@ -48,13 +47,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           chrome.storage.local.set({ backgroundTabId });
           sendResponse({ success: true, monitoringActive });
         });
-        return true; // Keeps the message channel open for asynchronous response.
+        return true; // Asynchronous response.
       } else {
-        // Background tab is already open.
         sendResponse({ success: true, monitoringActive });
       }
     } else {
-      // If monitoring is being turned off, remove the background tab if it exists.
+      // When stopping monitoring, remove the background tab if it exists.
       if (backgroundTabId) {
         chrome.tabs.remove(backgroundTabId, () => {
           logs.push({
@@ -83,7 +81,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// Listen for background tab closure (if the user or system closes it unexpectedly).
+// Listen for background tab closure (if it is closed unexpectedly).
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
   if (tabId === backgroundTabId) {
     logs.push({

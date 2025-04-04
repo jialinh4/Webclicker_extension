@@ -17,7 +17,10 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://webclicker.web.app/*"],
+        "matches": [
+          "*://webclicker.web.app/*",
+          "file:///*"
+        ],
         "js": ["content_script.js"]
       }
     ]
